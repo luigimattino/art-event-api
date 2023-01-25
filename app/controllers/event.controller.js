@@ -14,7 +14,7 @@ exports.ongoing_event_list = (req, res) => {
         andQuery.push({ city: city });
     }
     query['$and'] = andQuery; 
-    Event.find(query,'title city openingDate closingDate location address').then(data => {
+    Event.find(query,'title city openingDate closingDate location address -_id').then(data => {
         res.json(data);
     })
         .catch(err => {
