@@ -102,3 +102,14 @@ To call this service, you would make a GET request to the endpoint `/api/genres`
 ```bash
 curl -X GET 'http://localhost:5000/api/genres'
 ```
+
+### 5. Health check
+The service it allows you to monitor if the application is up time. It returns an healthcheck object that has three properties `uptime` , `message` and `timestamp`.
+
+Example
+
+To call this service, you would make a GET request to the endpoint `/api/healthcheck`. Here is an example using cURL:
+
+```bash
+curl -X GET 'http://localhost:5000/api/healthcheck'
+```

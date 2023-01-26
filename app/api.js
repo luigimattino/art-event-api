@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 const event_controller = require("./controllers/event.controller.js");
+const health_controller = require("./controllers/health.controller.js");
 var router = express.Router();
 
 // Connecting to database
@@ -23,5 +24,6 @@ router.get('/ongoing-events', event_controller.ongoing_event_list);
 router.get('/cities', event_controller.get_cities);
 router.get('/locations', event_controller.get_locations);
 router.get('/genres', event_controller.get_genres);
+router.get('/healthcheck', health_controller.health_check);
 
 module.exports = router;
