@@ -16,6 +16,8 @@ To call this service, you would make a GET request to the endpoint `/api/ongoing
 #### Input
 
 - `city` (optional) - a string representing the city to filter events by.
+- `location` (optional) -  returns events that are happening in a location that contains the specified string.
+- `genre` (optional) -  returns events that belong to the specified genre.
 
 #### Output
 
@@ -26,6 +28,8 @@ To call this service, you would make a GET request to the endpoint `/api/ongoing
   - `closingDate`: the date on which the event ends
   - `location`: the location of the event
   - `address`: the address of the event
+  - `location`: the location of the event
+  - `genres`: a list of genres related to the event
 
 
 To call this service, you would make a GET request to the endpoint http://localhost:5000/api/ongoing-events with the optional query parameter city. Here is an example using cURL:
@@ -37,20 +41,30 @@ curl -X GET 'http://localhost:5000/api/ongoing-events?city=Roma'
 ```json
 [
     {
-        "title": "La Biennale dello scarto 2022/2024",
-        "city": "Grosseto",
-        "openingDate": "2022-08-05T00:00:00.000Z",
-        "closingDate": "2024-04-30T00:00:00.000Z",
-        "location": "CASSERO SENESE",
-        "address": "Via Aurelio Saffi 6 - Grosseto - Toscana"
+        "title": "Inside Banksy: Unauthorized Exhibition",
+        "city": "Firenze",
+        "openingDate": "2022-11-25T00:00:00.000Z",
+        "closingDate": "2023-02-26T00:00:00.000Z",
+        "location": "SANTO STEFANO AL PONTE",
+        "address": "Piazza di Santo Stefano, 5 - Firenze - Toscana",
+        "genres": [
+            "new media"
+        ],
+        "artists": [
+            "Banksy"
+        ]
     },
     {
-        "title": "Art Exhibition in Rome",
-        "city": "Rome",
-        "openingDate": "2022-09-01T00:00:00.000Z",
-        "closingDate": "2022-10-15T00:00:00.000Z",
-        "location": "Palazzo delle Esposizioni",
-        "address": "Via Nazionale, 194 - Rome, Italy"
+        "title": "La Roma della Repubblica. Il racconto dell’Archeologia",
+        "city": "Roma",
+        "openingDate": "2023-01-13T00:00:00.000Z",
+        "closingDate": "2023-09-24T00:00:00.000Z",
+        "location": "Palazzo Caffarelli - Musei Capitolini",
+        "address": "Piazza Del Campidoglio 1 - Roma - Lazio",
+        "genres": [
+            "archeologia"
+        ],
+        "artists": []
     }
 ]
 ```
@@ -65,4 +79,26 @@ To call this service, you would make a GET request to the endpoint `/api/cities`
 
 ```bash
 curl -X GET 'http://localhost:5000/api/cities'
+```
+
+### 3. List of locations
+This service returns a list of all locations where art events take place.
+
+Example
+
+To call this service, you would make a GET request to the endpoint `/api/locations`. Here is an example using cURL:
+
+```bash
+curl -X GET 'http://localhost:5000/api/locations'
+```
+
+### 4. List of genres
+This service returns a list of all genres of the events.
+
+Example
+
+To call this service, you would make a GET request to the endpoint `/api/genres`. Here is an example using cURL:
+
+```bash
+curl -X GET 'http://localhost:5000/api/genres'
 ```
