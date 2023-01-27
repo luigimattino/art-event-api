@@ -21,6 +21,7 @@ mongoose.connect(db, {
     });
 
 router.get('/ongoing-events', event_controller.ongoing_event_list);
+router.get('/events/:id', event_controller.get_event_detail);
 router.get('/cities', event_controller.get_cities);
 router.get('/locations', event_controller.get_locations);
 router.get('/genres', event_controller.get_genres);

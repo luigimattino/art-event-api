@@ -11,7 +11,7 @@ This service returns a list of ongoing events based on the city specified in the
 
 #### Example
 
-To call this service, you would make a GET request to the endpoint `/api/ongoing-events` with the optional query parameter `city`. When the service is called, it retrieves a list of events from the database, filtered by the city parameter if it is provided. It also filter all events that are currently ongoing, comparing the `openingDate` and `closingDate` fields of the event with the current date.
+To call this service, you would make a GET request to the endpoint `/api/ongoing-events` with the optional query parameter `city`. When the service is called, it retrieves a list of events from the database, filtered by the city parameter if it is provided. It also filter all events that are currently ongoing, comparing the `openingDate` and `closingDate` fields of the event with the current date. The `openingDate` and `closingDate` fields are both in ISO 8601 format, which is a standardized format for representing date and time information. The format is `YYYY-MM-DDTHH:MM:SS.sssZ`, where `T` separates the date and time components and `Z` indicates that the time is in UTC. The `.sss` portion is optional, and is used to represent milliseconds. These fields can be easily parsed and used to perform calculations or comparisons with other dates.
 
 #### Input
 
@@ -22,6 +22,7 @@ To call this service, you would make a GET request to the endpoint `/api/ongoing
 #### Output
 
 - A JSON array containing the following fields for each event:
+  - `id` : the event identifier, can be used for retrieving the details
   - `title` : the title of the event
   - `city` : the city where the event is taking place
   - `openingDate`: the date on which the event starts
@@ -41,6 +42,7 @@ curl -X GET 'http://localhost:5000/api/ongoing-events?city=Roma'
 ```json
 [
     {
+        "id": "<uuidV4>",
         "title": "Inside Banksy: Unauthorized Exhibition",
         "city": "Firenze",
         "openingDate": "2022-11-25T00:00:00.000Z",
@@ -55,6 +57,7 @@ curl -X GET 'http://localhost:5000/api/ongoing-events?city=Roma'
         ]
     },
     {
+        "id": "<uuidV4>",
         "title": "La Roma della Repubblica. Il racconto dell’Archeologia",
         "city": "Roma",
         "openingDate": "2023-01-13T00:00:00.000Z",
@@ -70,7 +73,27 @@ curl -X GET 'http://localhost:5000/api/ongoing-events?city=Roma'
 ```
 Please note that the above output is an example, and the actual output will depend on the events stored in the database.
 
-### 2. List of cities
+### 2. Events Detail
+This service returns all data related to a specific `id`. The `id` field in the example you provided is a unique identifier for the event. It is a string of characters that follows the format of a universally unique identifier (UUID), which is a standardized way of generating a 128-bit identifier that is guaranteed to be unique across all devices and all time. The UUID is typically represented as a string of 32 hexadecimal characters, separated by hyphens, in the format of 8-4-4-12. The id field is used to easily and specifically reference the event in question
+
+#### Output
+- A JSON array containing the following fields for each event:
+  - `title`: The name of the event
+  - `city`: The city where the event is taking place
+  - `openingDate`: The date and time when the event starts (in ISO 8601 format)
+  - `closingDate`: The date and time when the event ends (in ISO 8601 format)
+  - `description`: A brief overview of the event
+  - `press`: Additional information and details about the event, such as the artistic director, theme, and location
+  - `location`: The specific location where the event is taking place
+  - `address`: The full address of the event location
+  - `dates`: The dates of the event
+  - `opening`: The opening date of the event
+  - `genres`: The type of event, such as festival, concert, or exhibition
+  - `artists`: A list of artists or performers involved in the event
+  - `editors`: A list of people or organizations responsible for editing the event
+  - `id`: A unique identifier for the event
+
+### 3. List of cities
 This service returns a list of all cities where art events take place.
 
 Example
@@ -81,7 +104,7 @@ To call this service, you would make a GET request to the endpoint `/api/cities`
 curl -X GET 'http://localhost:5000/api/cities'
 ```
 
-### 3. List of locations
+### 4. List of locations
 This service returns a list of all locations where art events take place.
 
 Example
@@ -92,7 +115,7 @@ To call this service, you would make a GET request to the endpoint `/api/locatio
 curl -X GET 'http://localhost:5000/api/locations'
 ```
 
-### 4. List of genres
+### 5. List of genres
 This service returns a list of all genres of the events.
 
 Example
@@ -103,7 +126,7 @@ To call this service, you would make a GET request to the endpoint `/api/genres`
 curl -X GET 'http://localhost:5000/api/genres'
 ```
 
-### 5. Health check
+### 6. Health check
 The service it allows you to monitor if the application is up time. It returns an healthcheck object that has three properties `uptime` , `message` and `timestamp`.
 
 Example

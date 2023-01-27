@@ -21,20 +21,30 @@ exports.ongoing_event_list = (req, res) => {
     if (locString) {
         andQuery.push({ location: { $regex: '.*' + locString + '.*' } });
     }
-    query['$and'] = andQuery; 
-    Event.find(query,'title city openingDate closingDate location address genres artists -_id').then(data => {
-        res.json(data);
-    })
-        .catch(err => {
-            res.status(500).json({
-                message:
-                    err.message || "Some error occurred while retrieving omgoing events."
-            });
+    query['$and'] = andQuery;
+    Event.find(query, 'title city openingDate closingDate location address genres artists').then(data => {
+        res.status(200).json(data);
+    }).catch(err => {
+        res.status(500).json({
+            message:
+                err.message || "Some error occurred while retrieving omgoing events."
         });
+    });
+};
+
+exports.get_event_detail = (req, res) => {
+    Event.findById(req.params.id, '-srcurl').then(data => {
+        res.status(200).json(data);
+    }).catch(err => {
+        res.status(500).json({
+            message:
+                err.message || "Some error occurred while retrieving omgoing events."
+        });
+    });
 };
 
 exports.get_cities = (req, res) => {
-    Event.find({},'city -_id').then(data => {
+    Event.find({}, 'city -_id').then(data => {
         const cities = data.reduce((set, e) => {
             set.add(e.city);
             return set;
@@ -50,9 +60,9 @@ exports.get_cities = (req, res) => {
 };
 
 exports.get_genres = (req, res) => {
-    Event.find({},'genres -_id').then(data => {
+    Event.find({}, 'genres -_id').then(data => {
         const genres = data.reduce((set, e) => {
-            e.genres.forEach((genre)=> set.add(genre));
+            e.genres.forEach((genre) => set.add(genre));
             return set;
         }, new Set());
         res.json(Array.from(genres));
@@ -66,7 +76,7 @@ exports.get_genres = (req, res) => {
 };
 
 exports.get_locations = (req, res) => {
-    Event.find({},'location -_id').then(data => {
+    Event.find({}, 'location -_id').then(data => {
         const locations = data.reduce((set, e) => {
             set.add(e.location);
             return set;
