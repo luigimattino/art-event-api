@@ -15,6 +15,7 @@ To call this service, you would make a GET request to the endpoint `/api/ongoing
 
 #### Input
 
+- `lang` (optional) - a string representing the language in which the event details should be returned. The default language is Italian (it), other supported languages are English (en) and Chinese (zh).
 - `city` (optional) - a string representing the city to filter events by.
 - `location` (optional) -  returns events that are happening in a location that contains the specified string.
 - `genre` (optional) -  returns events that belong to the specified genre.
@@ -74,7 +75,10 @@ curl -X GET 'http://localhost:5000/api/ongoing-events?city=Roma'
 Please note that the above output is an example, and the actual output will depend on the events stored in the database.
 
 ### 2. Events Detail
-This service returns all data related to a specific `id`. The `id` field in the example you provided is a unique identifier for the event. It is a string of characters that follows the format of a universally unique identifier (UUID), which is a standardized way of generating a 128-bit identifier that is guaranteed to be unique across all devices and all time. The UUID is typically represented as a string of 32 hexadecimal characters, separated by hyphens, in the format of 8-4-4-12. The id field is used to easily and specifically reference the event in question
+This service returns all data related to a specific `id`. The `id` field in the example you provided is a unique identifier for the event. It is a string of characters that follows the format of a universally unique identifier (UUID), which is a standardized way of generating a 128-bit identifier that is guaranteed to be unique across all devices and all time. The UUID is typically represented as a string of 32 hexadecimal characters, separated by hyphens, in the format of 8-4-4-12. The id field is used to easily and specifically reference the event in question.
+
+#### Input
+- `lang` (optional) - a string representing the language in which the event details should be returned. The default language is Italian (it), other supported languages are English (en) and Chinese (zh).
 
 #### Output
 - A JSON array containing the following fields for each event:
@@ -135,4 +139,15 @@ To call this service, you would make a GET request to the endpoint `/api/healthc
 
 ```bash
 curl -X GET 'http://localhost:5000/api/healthcheck'
+```
+
+### 7. random events
+This service returns a random event from the database. It is use for demo purposes.
+
+Example
+
+To call this service, you would make a GET request to the endpoint `/api/rand-event`. Here is an example using cURL:
+
+```bash
+curl -X GET 'http://localhost:5000/api/rand-event'
 ```

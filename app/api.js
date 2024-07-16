@@ -26,5 +26,6 @@ router.get('/cities', event_controller.get_cities);
 router.get('/locations', event_controller.get_locations);
 router.get('/genres', event_controller.get_genres);
 router.get('/healthcheck', health_controller.health_check);
+router.get('/rand-events', event_controller.random_event_list);
 
 module.exports = router;
